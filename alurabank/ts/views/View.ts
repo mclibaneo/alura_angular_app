@@ -1,12 +1,14 @@
 abstract class View<T>{
-    private _view : Element;
+    //add bilbioteca do JQUERY 
+        //(https://github.com/DefinitelyTyped/DefinitelyTyped)
+    private _view : JQuery;
 
     constructor(elemento : string){
-        this._view = document.querySelector(elemento);
+        this._view = $(elemento);
     }
 
     update(modelo : T) : void{
-        this._view.innerHTML = this.template(modelo);
+        this._view.html(this.template(modelo));
     }
 
     //template(modelo : T) : string{

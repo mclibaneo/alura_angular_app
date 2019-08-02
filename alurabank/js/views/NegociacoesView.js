@@ -1,6 +1,5 @@
 class NegocioesView extends View {
     template(modelo) {
-        // O ` cria um campo string sem a necessecidade de concatenacao por +
         return `
             <table class="table table-hover table-bordered">
                 <thead>

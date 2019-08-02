@@ -1,5 +1,4 @@
 class Negociacao {
-    //construtor ja define atributos e tipos da classe nos proprios parametros
     constructor(_data, _quantidade, _valor) {
         this._data = _data;
         this._quantidade = _quantidade;
