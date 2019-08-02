@@ -1,16 +1,11 @@
 class Negociacao{
     
-    //declaraco das propriedades da classes
-    //necessarias para rodar typescript
-    private _data;
-    private _quantidade;
-    private _valor
-
-    constructor(data, quantidade, valor){
-        this._data = data;
-        this._quantidade = quantidade;
-        this._valor = valor;
-    }
+    //construtor ja define atributos e tipos da classe nos proprios parametros
+    constructor(
+        private _data: Date, 
+        private _quantidade: number, 
+        private _valor:number
+        ){}
 
     get data(){
         return this._data;

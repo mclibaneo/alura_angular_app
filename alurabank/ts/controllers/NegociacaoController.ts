@@ -1,15 +1,18 @@
 class NegociacaoController{
 
-    private _inputData;
-    private _inputQuantidade;
-    private _inputValor;
-    private _negociacoes = new Negociacoes(); //ao atribuir valor o tipo ja e inferido
+    //declara atributos do tipo Element pois recebe ele do html
+   private _inputData : HTMLInputElement;
+   private _inputQuantidade : HTMLInputElement;
+   private _inputValor : HTMLInputElement;
+   private _negociacoes = new Negociacoes(); //ao atribuir valor o tipo ja e inferido
+
 
     constructor(){
         //busca pelo ID do elemento a partir da pagina html
-        this._inputData = document.querySelector('#data');
-        this._inputQuantidade = document.querySelector('#quantidade');
-        this._inputValor = document.querySelector('#valor');
+        //uso do casting <> explicito para conversao de tipos
+        this._inputData = <HTMLInputElement> document.querySelector('#data');
+        this._inputQuantidade = <HTMLInputElement> document.querySelector('#quantidade');
+        this._inputValor = <HTMLInputElement> document.querySelector('#valor');
     }
 
     adiciona(event : Event){
@@ -19,9 +22,11 @@ class NegociacaoController{
 
         //cria o objeto negociacao com os parametros 
         const negociacao = new Negociacao(
-            this._inputData.value,
-            this._inputQuantidade.value,
-            this._inputValor.value
+            //necessario converter do tipo inputHtml para data
+            new Date(this._inputData.value.replace(/-/g, ',')),
+            //necessario converter par tipo numerico
+            parseInt(this._inputQuantidade.value),
+            parseFloat(this._inputValor.value)
         ); 
 
         //adiciona negociacao no array
@@ -33,6 +38,7 @@ class NegociacaoController{
            console.log(n.quantidade);
            console.log(n.valor);
         }));
+
     }
 
 }
