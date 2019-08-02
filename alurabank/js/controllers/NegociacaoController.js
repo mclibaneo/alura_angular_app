@@ -2,6 +2,7 @@ class NegociacaoController {
     constructor() {
         this._negociacoes = new Negociacoes(); //ao atribuir valor o tipo ja e inferido
         this._negociacoesView = new NegocioesView("#negociacoesView");
+        this._mensagemView = new MensagemView("#mensagemView");
         //busca pelo ID do elemento a partir da pagina html
         //uso do casting <> explicito para conversao de tipos
         this._inputData = document.querySelector('#data');
@@ -21,6 +22,8 @@ class NegociacaoController {
         this._negociacoes.adiciona(negociacao);
         //adiciona na view
         this._negociacoesView.update(this._negociacoes);
+        //add mensagem na tela
+        this._mensagemView.update("Negociação adicionada com sucesso!");
         //imprime no console os elementos do array
         console.log(this._negociacoes.paraArray().forEach(n => {
             console.log(n.data);

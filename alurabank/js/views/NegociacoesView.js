@@ -1,10 +1,4 @@
-class NegocioesView {
-    constructor(elemento) {
-        this._view = document.querySelector(elemento);
-    }
-    update(modelo) {
-        this._view.innerHTML = this.template(modelo);
-    }
+class NegocioesView extends View {
     template(modelo) {
         // O ` cria um campo string sem a necessecidade de concatenacao por +
         return `
@@ -28,7 +22,7 @@ class NegocioesView {
                             </tr>
                             `).join('')}
                 </tbody>
-                
+
                 <tfoot>
                 </tfoot>
             </table>  

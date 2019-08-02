@@ -6,6 +6,7 @@ class NegociacaoController{
    private _inputValor : HTMLInputElement;
    private _negociacoes = new Negociacoes(); //ao atribuir valor o tipo ja e inferido
    private _negociacoesView = new NegocioesView("#negociacoesView");
+   private _mensagemView = new MensagemView("#mensagemView");
 
 
     constructor(){
@@ -35,6 +36,9 @@ class NegociacaoController{
 
         //adiciona na view
         this._negociacoesView.update(this._negociacoes);
+
+        //add mensagem na tela
+        this._mensagemView.update("Negociação adicionada com sucesso!");
 
         //imprime no console os elementos do array
         console.log(this._negociacoes.paraArray().forEach(n => {
