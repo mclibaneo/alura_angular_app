@@ -3,6 +3,7 @@ class NegociacaoController{
     private _inputData;
     private _inputQuantidade;
     private _inputValor;
+    private _negociacoes = new Negociacoes(); //ao atribuir valor o tipo ja e inferido
 
     constructor(){
         //busca pelo ID do elemento a partir da pagina html
@@ -11,7 +12,7 @@ class NegociacaoController{
         this._inputValor = document.querySelector('#valor');
     }
 
-    adiciona(event){
+    adiciona(event : Event){
 
         //para evitar que o form recarregue a pagina
         event.preventDefault();
@@ -23,8 +24,15 @@ class NegociacaoController{
             this._inputValor.value
         ); 
 
-        //imprime no console
-        console.log(negociacao);
+        //adiciona negociacao no array
+        this._negociacoes.adiciona(negociacao);
+
+        //imprime no console os elementos do array
+        console.log(this._negociacoes.paraArray().forEach(n => {
+           console.log(n.data); 
+           console.log(n.quantidade);
+           console.log(n.valor);
+        }));
     }
 
 }
