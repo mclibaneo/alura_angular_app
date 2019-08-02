@@ -5,6 +5,7 @@ class NegociacaoController{
    private _inputQuantidade : HTMLInputElement;
    private _inputValor : HTMLInputElement;
    private _negociacoes = new Negociacoes(); //ao atribuir valor o tipo ja e inferido
+   private _negociacoesView = new NegocioesView("#negociacoesView");
 
 
     constructor(){
@@ -12,7 +13,7 @@ class NegociacaoController{
         //uso do casting <> explicito para conversao de tipos
         this._inputData = <HTMLInputElement> document.querySelector('#data');
         this._inputQuantidade = <HTMLInputElement> document.querySelector('#quantidade');
-        this._inputValor = <HTMLInputElement> document.querySelector('#valor');
+        this._inputValor = <HTMLInputElement> document.querySelector('#valor');        
     }
 
     adiciona(event : Event){
@@ -31,6 +32,9 @@ class NegociacaoController{
 
         //adiciona negociacao no array
         this._negociacoes.adiciona(negociacao);
+
+        //adiciona na view
+        this._negociacoesView.update(this._negociacoes);
 
         //imprime no console os elementos do array
         console.log(this._negociacoes.paraArray().forEach(n => {
