@@ -1,9 +1,10 @@
 import { NegocioesView, MensagemView } from '../views/index';
 import { Negociacao, Negociacoes } from '../models/index';
+
 export class NegociacaoController{
 
     //declara atributos do tipo Element pois recebe ele do html
-   private _inputData : JQuery;
+   private _inputData : JQuery; // o '_' antes do nome da varivael indic aque ela eh private
    private _inputQuantidade : JQuery;
    private _inputValor : JQuery;
    private _negociacoes = new Negociacoes(); //ao atribuir valor o tipo ja e inferido
@@ -24,10 +25,16 @@ export class NegociacaoController{
         //para evitar que o form recarregue a pagina
         event.preventDefault();
 
+        //necessario converter do tipo inputHtml para data
+        let data = new Date(this._inputData.val().replace(/-/g, ','));
+        if(!this.diaUtil(data)){
+            this._mensagemView.update("Somente negociações em dia útil");
+            return;            
+        }
+
         //cria o objeto negociacao com os parametros 
-        const negociacao = new Negociacao(
-            //necessario converter do tipo inputHtml para data
-            new Date(this._inputData.val().replace(/-/g, ',')),
+        const negociacao = new Negociacao(            
+            data,             
             //necessario converter par tipo numerico
             parseInt(this._inputQuantidade.val()),
             parseFloat(this._inputValor.val())
@@ -51,4 +58,19 @@ export class NegociacaoController{
 
     }
 
+    private diaUtil(data : Date) : boolean{
+        if(data.getDay() == DiaSemana.Domingo || data.getDay() == DiaSemana.Sabado) return false;
+        return true;
+    }
+
+}
+
+enum DiaSemana{
+    Domingo,
+    Segunda,
+    Terca,
+    Quarta,
+    Quinta,
+    Sexta,
+    Sabado
 }

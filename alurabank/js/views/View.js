@@ -6,8 +6,9 @@ System.register([], function (exports_1, context_1) {
         setters: [],
         execute: function () {
             View = class View {
-                constructor(elemento) {
+                constructor(elemento, escapar = false) {
                     this._view = $(elemento);
+                    this._escape = escapar;
                 }
                 update(modelo) {
                     this._view.html(this.template(modelo));

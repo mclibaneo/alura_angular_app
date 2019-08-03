@@ -2,25 +2,13 @@ export class Negociacao{
     
     //construtor ja define atributos e tipos da classe nos proprios parametros
     constructor(
-        private _data: Date, 
-        private _quantidade: number, 
-        private _valor:number
+        readonly data: Date, // a propriedaed readonly encapula o private e o metodo get
+        readonly quantidade: number, 
+        readonly valor:number
         ){}
 
-    get data(){
-        return this._data;
-    }
-
-    get quantidade(){
-        return this._quantidade;
-    }
-
-    get valor(){
-        return this._valor;
-    }
-
     get volume(){
-        return this._quantidade * this._valor;
+        return this.quantidade * this.valor;
     }
 
 }

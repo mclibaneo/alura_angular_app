@@ -2,9 +2,18 @@ export abstract class View<T>{
     //add bilbioteca do JQUERY 
         //(https://github.com/DefinitelyTyped/DefinitelyTyped)
     private _view : JQuery;
+    private _escape : boolean;
 
-    constructor(elemento : string){
+    //este construtor assume o ultimo parametro como indefinido
+   /*  constructor(elemento : string, escapar? : boolean){
         this._view = $(elemento);
+        this._escape = escapar;
+    } */
+
+    //neste construtor o ultimo parametro tem valor padrao de falso
+    constructor(elemento : string, escapar : boolean = false){
+        this._view = $(elemento);
+        this._escape = escapar;
     }
 
     update(modelo : T) : void{
