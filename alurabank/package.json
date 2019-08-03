@@ -9,12 +9,16 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "tsc",
-    "start": "tsc -w"
+    "watch": "tsc -w",
+    "server": "lite-server",
+    "start": "concurrently \"npm run watch\" \"npm run server\""
   },
   "author": "mclibaneo@ufg.br",
   "license": "ISC",
   "devDependencies": {
     "@types/jquery": "^2.0.53",
+    "concurrently": "^3.4.0",
+    "lite-server": "^2.3.0",
     "typescript": "^2.3.2"
   }
 }

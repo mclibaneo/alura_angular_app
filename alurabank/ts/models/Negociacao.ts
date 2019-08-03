@@ -1,4 +1,4 @@
-class Negociacao{
+export class Negociacao{
     
     //construtor ja define atributos e tipos da classe nos proprios parametros
     constructor(

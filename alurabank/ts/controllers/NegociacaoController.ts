@@ -1,4 +1,6 @@
-class NegociacaoController{
+import { NegocioesView, MensagemView } from '../views/index';
+import { Negociacao, Negociacoes } from '../models/index';
+export class NegociacaoController{
 
     //declara atributos do tipo Element pois recebe ele do html
    private _inputData : JQuery;

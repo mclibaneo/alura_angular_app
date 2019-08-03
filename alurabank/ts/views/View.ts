@@ -1,4 +1,4 @@
-abstract class View<T>{
+export abstract class View<T>{
     //add bilbioteca do JQUERY 
         //(https://github.com/DefinitelyTyped/DefinitelyTyped)
     private _view : JQuery;

@@ -1,3 +1,6 @@
+//importa arquivos de dependencia
+import { NegociacaoController } from './controllers/NegociacaoController';
+
 //cria objeto controller
 const controller = new NegociacaoController();
 //add evento de clique do botao

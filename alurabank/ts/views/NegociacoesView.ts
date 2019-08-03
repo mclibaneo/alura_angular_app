@@ -1,4 +1,8 @@
-class NegocioesView extends View<Negociacoes>{
+//uso do import para utilizar dependencias
+import { View}  from './index';
+import { Negociacao, Negociacoes } from '../models/index';
+
+export class NegocioesView extends View<Negociacoes>{
    
     template(modelo : Negociacoes) : string{
         // O ` cria um campo string sem a necessecidade de concatenacao por +

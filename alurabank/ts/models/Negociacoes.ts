@@ -1,4 +1,5 @@
-class Negociacoes{
+import { Negociacao } from './index';
+export class Negociacoes{
     
     // declaracao de um vetor
     private _negociacoes : Negociacao[] = [];
