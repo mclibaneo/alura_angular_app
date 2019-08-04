@@ -6,7 +6,11 @@ const controller = new NegociacaoController();
 //add evento de clique do botao
 
 //utilizando JQUERY
-$('.form').submit(controller.adiciona.bind(controller));
+$('.form')
+    .submit(controller.adiciona.bind(controller)); //amarra ao controller da acao
+$('#botao-importar')
+    .click(controller.importaDados.bind(controller));
+    
 
 /*document
     .querySelector('.form')

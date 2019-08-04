@@ -1,6 +1,7 @@
 import { NegocioesView, MensagemView } from '../views/index';
-import { Negociacao, Negociacoes } from '../models/index';
-import { domInject } from '../helpers/decorators/index';
+import { Negociacao, Negociacoes, NegociacaoParcial } from '../models/index';
+import { domInject, throttle } from '../helpers/decorators/index';
+import { NegociacaoService } from '../services/index';
 
 export class NegociacaoController{
 
@@ -15,6 +16,7 @@ export class NegociacaoController{
    private _negociacoes = new Negociacoes(); //ao atribuir valor o tipo ja e inferido
    private _negociacoesView = new NegocioesView("#negociacoesView");
    private _mensagemView = new MensagemView("#mensagemView");
+   private _negociacaoService = new NegociacaoService();
 
 
     constructor(){
@@ -23,11 +25,8 @@ export class NegociacaoController{
         this._negociacoesView.update(this._negociacoes);    
     }
 
-    adiciona(event : Event){
-
-        //para evitar que o form recarregue a pagina
-        event.preventDefault();
-
+    @throttle() // este decorator posterga a execucao para 0,5s evitando muitas requisicoes seguidas
+    adiciona(){
         //necessario converter do tipo inputHtml para data
         let data = new Date(this._inputData.val().replace(/-/g, ','));
         if(!this.diaUtil(data)){
@@ -66,6 +65,20 @@ export class NegociacaoController{
         return true;
     }
 
+    @throttle()
+    importaDados(){        
+        this._negociacaoService
+            .obterNegociacoes(res => {
+                if(res.ok) return res;
+                throw new Error(res.statusText);
+            }) //obterNegociacoes devolve um array de negociacao a funcao acima verifica se a resposta esta ok
+            .then(negociacoes => {
+                    negociacoes.forEach((n : Negociacao) => {
+                        this._negociacoes.adiciona(n);
+                        this._negociacoesView.update(this._negociacoes);
+                });
+            });        
+    }
 }
 
 enum DiaSemana{
