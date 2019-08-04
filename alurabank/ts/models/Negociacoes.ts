@@ -1,7 +1,9 @@
-import { Negociacao } from './index';
+import { Negociacao } from './Negociacao';
 import { logarTempoDeExecucao } from '../helpers/decorators/index';
-export class Negociacoes{
-    
+import { InterfaceAdaptada } from '../models/InterfaceAdaptada';
+
+export class Negociacoes implements InterfaceAdaptada<Negociacoes>{
+       
     // declaracao de um vetor
     private _negociacoes : Negociacao[] = [];
    
@@ -14,6 +16,14 @@ export class Negociacoes{
     paraArray() : Negociacao[]{
         //[].concat cria uma copia do array para evitar alteracoes no array original
         return ([] as Negociacao[]).concat(this._negociacoes); //define o vetor [] do tipo Negociacao
+    }
+
+    paraTexto() : void{
+        console.log(JSON.stringify(this._negociacoes));
+    }
+
+    igual(objeto: Negociacoes): boolean {
+        return JSON.stringify(this._negociacoes) == JSON.stringify(objeto.paraArray);
     }
 
 }

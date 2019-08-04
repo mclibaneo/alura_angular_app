@@ -8,7 +8,11 @@ export class NegociacaoService{
                 .then((dados : NegociacaoParcial[]) =>
                     dados.map(dado => new Negociacao(new Date(), dado.vezes, dado.montante))
                 ) //then encadeado pega o json da resposta e retorna array de negociacoes
-                .catch(err => console.log(err)); //se houver erro ira imprimir no console 
+                .catch(err => {
+                    //se houver erro ira imprimir no console 
+                    console.log(err);
+                    throw new Error("Não foi possível importar as negociações");//envia mensagem de erro
+                }); 
     }
 }
 /**

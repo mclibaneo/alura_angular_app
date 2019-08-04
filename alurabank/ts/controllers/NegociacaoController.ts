@@ -52,12 +52,8 @@ export class NegociacaoController{
         this._mensagemView.update("Negociação adicionada com sucesso!");
 
         //imprime no console os elementos do array
-        console.log(this._negociacoes.paraArray().forEach(n => {
-           console.log(n.data); 
-           console.log(n.quantidade);
-           console.log(n.valor);
-        }));
-
+        this._negociacoes.paraTexto();
+        negociacao.paraTexto();
     }
 
     private diaUtil(data : Date) : boolean{
@@ -65,19 +61,28 @@ export class NegociacaoController{
         return true;
     }
 
+    //async torna o metodo assincrono que trabalha com um objeto do tipo Promise
     @throttle()
-    importaDados(){        
-        this._negociacaoService
+    async importaDados(){
+        try{
+            //await espera a execucao em segundo plano e o retorno de uma promisse
+            const negociacoesParaImportar = await this._negociacaoService
             .obterNegociacoes(res => {
                 if(res.ok) return res;
                 throw new Error(res.statusText);
-            }) //obterNegociacoes devolve um array de negociacao a funcao acima verifica se a resposta esta ok
-            .then(negociacoes => {
-                    negociacoes.forEach((n : Negociacao) => {
-                        this._negociacoes.adiciona(n);
-                        this._negociacoesView.update(this._negociacoes);
-                });
-            });        
+            }); //obterNegociacoes devolve um array de negociacao a funcao acima verifica se a resposta esta ok
+            const importadas = this._negociacoes.paraArray();
+            //usa filter para evitar duplicacao nas negociacoes
+            negociacoesParaImportar
+                .filter((n : Negociacao) => 
+                        !importadas.some(negociacaoImportada => n.igual(negociacaoImportada))) 
+                .forEach((n : Negociacao) => {
+                    this._negociacoes.adiciona(n);
+                    this._negociacoesView.update(this._negociacoes);
+            });            
+        }catch(err){
+            this._mensagemView.update(err.message); //mostra mensagem lancada pelo erro na view
+        }
     }
 }
 
