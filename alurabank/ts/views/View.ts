@@ -1,3 +1,5 @@
+import { logarTempoDeExecucao } from '../helpers/decorators/index';
+
 export abstract class View<T>{
     //add bilbioteca do JQUERY 
         //(https://github.com/DefinitelyTyped/DefinitelyTyped)
@@ -16,6 +18,7 @@ export abstract class View<T>{
         this._escape = escapar;
     }
 
+    @logarTempoDeExecucao()
     update(modelo : T) : void{
         this._view.html(this.template(modelo));
     }

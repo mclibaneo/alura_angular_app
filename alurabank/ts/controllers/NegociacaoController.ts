@@ -1,11 +1,16 @@
 import { NegocioesView, MensagemView } from '../views/index';
 import { Negociacao, Negociacoes } from '../models/index';
+import { domInject } from '../helpers/decorators/index';
 
 export class NegociacaoController{
 
-    //declara atributos do tipo Element pois recebe ele do html
-   private _inputData : JQuery; // o '_' antes do nome da varivael indic aque ela eh private
+   
+   @domInject('#data') //faz um lazyloading da propriedade para busca-la somento quando necessario 
+   //declara atributos do tipo Element pois recebe ele do html
+   private _inputData : JQuery; // o '_' antes do nome da varivael indica que ela eh private
+   @domInject('#quantidade')
    private _inputQuantidade : JQuery;
+   @domInject('#valor')
    private _inputValor : JQuery;
    private _negociacoes = new Negociacoes(); //ao atribuir valor o tipo ja e inferido
    private _negociacoesView = new NegocioesView("#negociacoesView");
@@ -15,9 +20,7 @@ export class NegociacaoController{
     constructor(){
         //busca pelo ID do elemento a partir da pagina html
         //uso do casting <> explicito para conversao de tipos
-        this._inputData = $('#data');
-        this._inputQuantidade = $('#quantidade');
-        this._inputValor = $('#valor');        
+        this._negociacoesView.update(this._negociacoes);    
     }
 
     adiciona(event : Event){
